@@ -46,7 +46,7 @@ def login_request(request):
 			username = form.cleaned_data.get('username')
 			password = form.cleaned_data.get('password')
 			user = authenticate(username=username, password=password)
-			if user is not None:
+			if user is not None and not user.is_staff and user.is_active:
 				login(request, user)
 				messages.info(request, f"You are now logged in as {username}.")
 				return redirect("emodule:home")
